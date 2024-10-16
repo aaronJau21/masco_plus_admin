@@ -1,0 +1,28 @@
+<div class="flex flex-col justify-center items-center h-screen">
+  <p class="text-2xl font-bold text-primary">Masco Plus Admin</p>
+  <form class="flex flex-col" (ngSubmit)="login()" [formGroup]="loginInput">
+    <mat-form-field>
+      <mat-label>UserName</mat-label>
+      <input matInput formControlName="user_name" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input
+        [type]="hide() ? 'password' : 'text'"
+        matInput
+        formControlName="password"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hidePassword($event)"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide()"
+      >
+        <mat-icon>{{ hide() ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
+    </mat-form-field>
+    <button mat-flat-button>Ingresar</button>
+  </form>
+</div>
