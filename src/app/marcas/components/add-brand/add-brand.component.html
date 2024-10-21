@@ -1,0 +1,20 @@
+<div class="bg-slate-500 w-96 p-3">
+  <p class="text-center">Agrega una nueva marca</p>
+
+  <mat-dialog-content>
+    <div class="flex justify-center">
+      <form
+        class="flex flex-col"
+        (ngSubmit)="createBrand()"
+        [formGroup]="createBrandForm"
+      >
+        <mat-form-field>
+          <mat-label>Nombre de la marca</mat-label>
+          <input type="text" matInput formControlName="name" />
+        </mat-form-field>
+
+        <button mat-flat-button>Crear</button>
+      </form>
+    </div>
+  </mat-dialog-content>
+</div>
