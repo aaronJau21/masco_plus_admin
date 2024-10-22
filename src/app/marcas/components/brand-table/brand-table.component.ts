@@ -1,12 +1,12 @@
 import { Component, inject, input, OnInit } from '@angular/core';
-
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 import { Brand } from '../../interfaces';
-import { MatButtonModule } from '@angular/material/button';
 import { MarcasService } from '../../services/marcas.service';
 
 @Component({
@@ -27,11 +27,7 @@ export class BrandTableComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
 
   public brands = input.required<Brand[]>();
-  public activates = input.required<boolean[]>();
   public displayColumns: string[] = ['id', 'name', 'activate', 'actions'];
 
-
-  ngOnInit(): void {
-    // console.log(this.brands());
-  }
+  ngOnInit(): void {}
 }
