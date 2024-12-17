@@ -1,5 +1,10 @@
+import { Outlet } from "react-router";
+
 export const MainLayouts = () => {
   return (
-    <div>MainLayouts</div>
-  )
-}
+    <div>
+      <h1>Hola Mundo</h1>
+      <Outlet />
+    </div>
+  );
+};
