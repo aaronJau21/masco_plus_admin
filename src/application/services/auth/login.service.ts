@@ -1,6 +1,6 @@
 import { api } from "../../../api/api";
-import { ILoginRequest } from "../../interfaces/login-request.interface";
-import { IAuthResponse } from "../../interfaces/login-response.interface";
+import { ILoginRequest } from "../../interfaces/auth/login-request.interface";
+import { IAuthResponse } from "../../interfaces/auth/login-response.interface";
 
 export class AuthService {
   public static async login(request: ILoginRequest): Promise<IAuthResponse> {

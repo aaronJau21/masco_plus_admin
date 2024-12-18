@@ -12,7 +12,6 @@ export const ItemsSidebar = () => {
           className="w-32 rounded-full"
         />
       </div>
-      {/* bg-[#50C878] p-2 rounded-xl */}
       <nav className="mt-9">
         {itemsRoutes.map((item) => (
           <NavLink

@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { IUser } from "../interfaces/login-response.interface";
+import { IUser } from "../interfaces/auth/login-response.interface";
 import { devtools, persist } from "zustand/middleware";
 
 interface IAuthState {

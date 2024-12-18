@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { AuthService } from "../services/auth/login.service";
 import { useForm } from "react-hook-form";
-import { ILoginRequest } from "../interfaces/login-request.interface";
+import { ILoginRequest } from "../interfaces/auth/login-request.interface";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import useAuthStore from "../storage/authStorage";

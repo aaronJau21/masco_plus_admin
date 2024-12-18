@@ -5,7 +5,7 @@ export const MainLayouts = () => {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="flex-1">
+      <div className="flex-1 p-5">
         <Outlet />
       </div>
     </div>
