@@ -10,12 +10,16 @@ export const Sidebar = () => {
   const classItem: string = "bg-secundary text-white text-gray-500";
 
   return (
-    <div className="bg-slate-150 h-screen flex">
+    <div className="bg-slate-150 flex h-screen">
       <div className="w-28 rounded-r-3xl shadow-md">
         <div className="flex justify-center items-center m-5">
-          <img src={logo} alt="Logo de Masco Plus" className="w-16 rounded-full" />
+          <img
+            src={logo}
+            alt="Logo de Masco Plus"
+            className="w-16 rounded-full"
+          />
         </div>
-        <div className="h-full flex flex-col items-center">
+        <div className="flex flex-col items-center">
           <div
             onClick={() => setShowItems(!showItems)}
             className={`${
