@@ -1,13 +1,14 @@
-import useBrandStore from "../../../../application/storage/brandStore";
+import { useCreateBrands } from "../../../../application/hooks/brands/useCreateBrands";
 
 export const ModelCreateBrand = () => {
-  const setShowModal = useBrandStore((state) => state.setShowModal);
+  const { register, handleSubmit, onSubmit, setShowModal } = useCreateBrands();
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
         <p className="text-center text-2xl font-bold">Crea una marca</p>
 
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="my-5">
             <label className="block text-center" htmlFor="name">
               Name
@@ -16,6 +17,7 @@ export const ModelCreateBrand = () => {
               type="text"
               id="name"
               className="bg-primary rounded-md focus:border-primary w-full"
+              {...register("name")}
             />
           </div>
 

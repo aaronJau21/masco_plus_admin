@@ -2,10 +2,10 @@ import useAuthStore from "../../../application/storage/authStorage";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router";
 import { useGetBrands } from "../../../application/hooks/brands/useGetBrands";
-import { FaPen } from "react-icons/fa";
 import { CiTrash } from "react-icons/ci";
 import useBrandStore from "../../../application/storage/brandStore";
 import { ModelCreateBrand } from "./components/ModelCreateBrand";
+import { useDeleteBrand } from "../../../application/hooks/brands/useDeleteBrand";
 
 export const Brands = () => {
   const clearAuth = useAuthStore((store) => store.clearAuth);
@@ -13,7 +13,11 @@ export const Brands = () => {
   const showModal = useBrandStore((state) => state.showModal);
   const setShowModal = useBrandStore((state) => state.setShowModal);
 
-  const { data, isLoading, isError } = useGetBrands();
+  const { data, isLoading, isError, error } = useGetBrands();
+
+  const { onDeleteBrand } = useDeleteBrand();
+
+  console.log(error);
 
   if (isError) {
     toast.error("Token expirado");
@@ -42,25 +46,30 @@ export const Brands = () => {
             Crear
           </button>
         </div>
-        <table className="text-left w-full">
-          <thead className="bg-black flex text-white w-full">
-            <tr className="flex w-full mb-4">
-              <th className="p-4 w-1/3">ID</th>
-              <th className="p-4 w-1/3">name</th>
-              <th className="p-4 w-1/3">Actions</th>
+
+        <table className="table-auto w-full">
+          <thead>
+            <tr className="bg-primary text-center h-16">
+              <th className="text-xl font-bold">ID</th>
+              <th className="text-xl font-bold">Nombre</th>
+              <th className="text-xl font-bold">Actiones</th>
             </tr>
           </thead>
-          <tbody
-            className="bg-grey-light flex flex-col items-center justify-between overflow-y-scroll w-full"
-            style={{ height: "70vh" }}
-          >
-            {data.brands.map((item, index) => (
-              <tr key={item.id} className="flex w-full mb-4">
-                <td className="p-7 w-1/3">{index + 1}</td>
-                <td className="p-7 w-1/3">{item.name}</td>
-                <td className="p-7 w-1/3 flex gap-x-7 text-2xl">
-                  <FaPen className="cursor-pointer" />
-                  <CiTrash className="cursor-pointer" />
+          <tbody className="bg-white border border-gray-500">
+            {data?.brands.map((brand) => (
+              <tr
+                key={brand.id}
+                className="text-center h-16 border-b border-gray-500"
+              >
+                <td>{brand.id}</td>
+                <td>{brand.name}</td>
+                <td>
+                  <button
+                    className="text-red-500 text-xl"
+                    onClick={() => onDeleteBrand(brand.id)}
+                  >
+                    <CiTrash />
+                  </button>
                 </td>
               </tr>
             ))}
