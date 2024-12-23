@@ -6,6 +6,7 @@ import { CiTrash } from "react-icons/ci";
 import useBrandStore from "../../../application/storage/brandStore";
 import { ModelCreateBrand } from "./components/ModelCreateBrand";
 import { useDeleteBrand } from "../../../application/hooks/brands/useDeleteBrand";
+import { Loader } from "../../shared";
 
 export const Brands = () => {
   const clearAuth = useAuthStore((store) => store.clearAuth);
@@ -20,20 +21,17 @@ export const Brands = () => {
   console.log(error);
 
   if (isError) {
-    toast.error("Token expirado");
-    setTimeout(() => {
-      clearAuth();
-      naviagete("/login");
-    }, 3000);
+    if (error?.message === "AxiosError: Request failed with status code 401") {
+      toast.error("Token expirado");
+      setTimeout(() => {
+        clearAuth();
+        naviagete("/login");
+      }, 3000);
+    }
+    console.log(error);
   }
 
-  if (isLoading)
-    return (
-      <>
-        <div>Loading...</div>
-        <ToastContainer />
-      </>
-    );
+  if (isLoading) return <Loader />;
 
   if (data?.brands)
     return (
