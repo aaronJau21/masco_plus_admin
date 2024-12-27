@@ -1,28 +1,25 @@
 import { Loader } from "../../shared";
 import { CiPen, CiTrash } from "react-icons/ci";
 import { useGetProducts } from "../../../application/hooks/products/useGetProducts";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ProductService } from "../../../application/services/product/product.service";
+import { useDeleteProduct } from "../../../application/hooks/products/useDeleteProduct";
+import useProductStore from "../../../application/storage/productStore";
+import { ModelCreateProduct } from "./components/ModelCreateProduct";
 
 export const Products = () => {
   const { data, isLoading } = useGetProducts();
-  const queryClient = useQueryClient();
-  const mutation = useMutation({
-    mutationFn: ProductService.deleteProduct,
-    onSuccess: (data) => {
-      console.log(data);
-      queryClient.invalidateQueries({ queryKey: ["products"] });
-    },
-  });
-
-  const onDeleteProduct = (id: string) => mutation.mutate(id);
+  const { onDeleteProduct } = useDeleteProduct();
+  const showModal = useProductStore((state) => state.showModal);
+  const setShowModal = useProductStore((state) => state.setShowModal);
 
   if (isLoading) return <Loader />;
   if (data?.products)
     return (
       <>
         <div className="flex justify-end my-5">
-          <button className="bg-blue-500 py-1 px-3 rounded-md text-xl text-white hover:bg-blue-600">
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-blue-500 py-1 px-3 rounded-md text-xl text-white hover:bg-blue-600"
+          >
             Crear
           </button>
         </div>
@@ -74,6 +71,7 @@ export const Products = () => {
             ))}
           </tbody>
         </table>
+        {showModal && <ModelCreateProduct />}
       </>
     );
 };

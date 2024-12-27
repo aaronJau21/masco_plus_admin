@@ -1,5 +1,5 @@
 import useAuthStore from "../../../application/storage/authStorage";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router";
 import { useGetBrands } from "../../../application/hooks/brands/useGetBrands";
 import { CiTrash } from "react-icons/ci";
@@ -21,13 +21,8 @@ export const Brands = () => {
   console.log(error);
 
   if (isError) {
-    if (error?.message === "AxiosError: Request failed with status code 401") {
-      toast.error("Token expirado");
-      setTimeout(() => {
-        clearAuth();
-        naviagete("/login");
-      }, 3000);
-    }
+    clearAuth();
+    naviagete("/login");
     console.log(error);
   }
 
