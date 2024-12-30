@@ -3,6 +3,7 @@ import {
   IGetProductsResponse,
   IProductCreateRequest,
   IProductCreateResponse,
+  IUpdateStatusProduct,
 } from "../../../domain";
 import useAuthStore from "../../storage/authStorage";
 
@@ -39,6 +40,23 @@ export class ProductService {
         Authorization: `Bearer ${token}`,
       },
     });
+
+    return data;
+  }
+
+  public static async updateStatusProduct(
+    id: string,
+    status: boolean
+  ): Promise<IUpdateStatusProduct> {
+    const { data } = await api.patch(
+      `/product/status/${id}`,
+      { status },
+      {
+        headers: {
+          Authorization: `Bearer ${useAuthStore.getState().token}`,
+        },
+      }
+    );
 
     return data;
   }

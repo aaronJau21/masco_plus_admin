@@ -8,7 +8,7 @@ export const Login = () => {
     <div className="bg-slate-400 flex justify-center items-center h-screen">
       <div className="w-1/2 h-screen hidden lg:block">
         <img
-          src="https://placehold.co/800x/667fff/ffffff.png?text=Your+Image&font=Montserrat"
+          src="/logo.jpeg"
           alt="Placeholder Image"
           className="object-cover w-full h-full"
         />

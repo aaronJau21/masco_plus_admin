@@ -4,12 +4,14 @@ import { useGetProducts } from "../../../application/hooks/products/useGetProduc
 import { useDeleteProduct } from "../../../application/hooks/products/useDeleteProduct";
 import useProductStore from "../../../application/storage/productStore";
 import { ModelCreateProduct } from "./components/ModelCreateProduct";
+import { useUpdateStatusProduct } from "../../../application/hooks/products/useUpdateStatusProduct";
 
 export const Products = () => {
   const { data, isLoading } = useGetProducts();
   const { onDeleteProduct } = useDeleteProduct();
   const showModal = useProductStore((state) => state.showModal);
   const setShowModal = useProductStore((state) => state.setShowModal);
+  const updateStatusMutation = useUpdateStatusProduct();
 
   if (isLoading) return <Loader />;
   if (data?.products)
@@ -47,6 +49,12 @@ export const Products = () => {
                 <td>{product.price}</td>
                 <td>
                   <button
+                    onClick={() =>
+                      updateStatusMutation.mutate({
+                        id: product.id,
+                        status: !product.status,
+                      })
+                    }
                     className={`${
                       product.status === false
                         ? "bg-red-600 text-white"
