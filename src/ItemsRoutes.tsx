@@ -3,12 +3,13 @@ import { Home } from "./presentation/pages/home/Home";
 import { Products } from "./presentation/pages/products/Products";
 import { MdOutlineInventory } from "react-icons/md";
 import { Brands } from "./presentation/pages/brands/Brands";
+import { UpdateProduct } from "./presentation/pages/products/UpdateProduct";
 
-interface IItemsRoutes {
+export interface IItemsRoutes {
   path: string;
-  title: string;
+  title?: string;
   component: JSX.Element;
-  icon: JSX.Element;
+  icon?: JSX.Element;
 }
 
 export const itemsRoutes: IItemsRoutes[] = [
@@ -29,5 +30,9 @@ export const itemsRoutes: IItemsRoutes[] = [
     title: "Productos",
     component: <Products />,
     icon: <MdOutlineInventory />,
+  },
+  {
+    path: "products/:id",
+    component: <UpdateProduct />,
   },
 ];

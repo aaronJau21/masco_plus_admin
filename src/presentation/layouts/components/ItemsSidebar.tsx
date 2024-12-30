@@ -1,8 +1,19 @@
 import { NavLink } from "react-router";
-import { itemsRoutes } from "../../../ItemsRoutes";
+import { IItemsRoutes, itemsRoutes } from "../../../ItemsRoutes";
 import logo from "/logo.jpeg";
+import { useEffect, useState } from "react";
 
 export const ItemsSidebar = () => {
+  const [itemsRouter, setItemsRouter] = useState<IItemsRoutes[]>([]);
+  const routes = () => {
+    const items = itemsRoutes.filter((item) => item.title);
+    setItemsRouter(items);
+  };
+
+  useEffect(() => {
+    routes();
+  }, []);
+
   return (
     <div className="w-72 flex flex-col  p-5 rounded-r-3xl shadow-md h-screen">
       <div className="w-full flex justify-center ">
@@ -13,7 +24,7 @@ export const ItemsSidebar = () => {
         />
       </div>
       <nav className="mt-9">
-        {itemsRoutes.map((item) => (
+        {itemsRouter.map((item) => (
           <NavLink
             className={({ isActive }) =>
               isActive
