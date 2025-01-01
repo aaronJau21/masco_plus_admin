@@ -5,13 +5,24 @@ import { useDeleteProduct } from "../../../application/hooks/products/useDeleteP
 import useProductStore from "../../../application/storage/productStore";
 import { ModelCreateProduct } from "./components/ModelCreateProduct";
 import { useUpdateStatusProduct } from "../../../application/hooks/products/useUpdateStatusProduct";
+import { useNavigate } from "react-router";
+import useAuthStore from "../../../application/storage/authStorage";
 
 export const Products = () => {
-  const { data, isLoading } = useGetProducts();
+  const clearAuth = useAuthStore((store) => store.clearAuth);
+  const naviagete = useNavigate();
+
+  const { data, isLoading, isError, error } = useGetProducts();
   const { onDeleteProduct } = useDeleteProduct();
   const showModal = useProductStore((state) => state.showModal);
   const setShowModal = useProductStore((state) => state.setShowModal);
   const updateStatusMutation = useUpdateStatusProduct();
+
+  if (isError) {
+    clearAuth();
+    naviagete("/login");
+    console.log(error);
+  }
 
   if (isLoading) return <Loader />;
   if (data?.products)
@@ -71,7 +82,10 @@ export const Products = () => {
                   >
                     <CiTrash />
                   </button>
-                  <button className="text-yellow-700 text-xl hover:text-2xl transition-all">
+                  <button
+                    onClick={() => naviagete(`/products/${product.id}`)}
+                    className="text-yellow-700 text-xl hover:text-2xl transition-all"
+                  >
                     <CiPen />
                   </button>
                 </td>

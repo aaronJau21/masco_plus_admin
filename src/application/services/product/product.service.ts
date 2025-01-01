@@ -1,6 +1,7 @@
 import { api } from "../../../api/api";
 import {
   IGetProductsResponse,
+  IProduct,
   IProductCreateRequest,
   IProductCreateResponse,
   IUpdateStatusProduct,
@@ -48,15 +49,27 @@ export class ProductService {
     id: string,
     status: boolean
   ): Promise<IUpdateStatusProduct> {
+    const token = useAuthStore.getState().token;
     const { data } = await api.patch(
       `/product/status/${id}`,
       { status },
       {
         headers: {
-          Authorization: `Bearer ${useAuthStore.getState().token}`,
+          Authorization: `Bearer ${token}`,
         },
       }
     );
+
+    return data;
+  }
+
+  public static async findProduct(id: string): Promise<{ product: IProduct }> {
+    const token = useAuthStore.getState().token;
+    const { data } = await api.get(`/product/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return data;
   }
